@@ -7,6 +7,8 @@ import 'package:flutter_firebase_api/widget/custom_text_form_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
+import '../../database/user_api.dart';
+
 class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
 
@@ -75,7 +77,17 @@ class SignupScreen extends StatelessWidget {
                   title: 'signup',
                   onTap: () async => authPro.onRegister(),
                   textStyle: const TextStyle(color: Colors.white),
-                )
+                ),
+                 const SizedBox(
+                  height: 20,
+                ),
+                CustomElevatedButton(
+                  title: 'signup',
+                  onTap: () async {
+                    await UserApi().getUser();
+                  },
+                  textStyle: const TextStyle(color: Colors.white),
+                ),
               ],
             ),
           ),

@@ -6,29 +6,30 @@ import 'package:image_picker/image_picker.dart';
 
 import '../database/auth_api.dart';
 import '../database/storage_api.dart';
+import '../database/user_api.dart';
 import '../utlities/image_picker.dart';
 
 class AuthProvider with ChangeNotifier {
   onRegister() async {
-    
-    String imageUrl = '';
-    if (profilePhoto != null) {
-      print('Enter');
-      String tempImage =
-          await StorageApi().uploadImageToFirebase(profilePhoto!);
-      print(tempImage);
-      imageUrl = tempImage;
+    // String imageUrl = '';
+    // if (profilePhoto != null) {
+    //   print('Enter');
+    //   String tempImage =
+    //       await StorageApi().uploadImageToFirebase(profilePhoto!);
+    //   print(tempImage);
+    //   imageUrl = tempImage;
+    // }
+    String token = await AuthApi().signupUser(email.text, password.text);
+    AppUser appUser = AppUser(
+        name: name.text,
+        email: email.text,
+        userName: userName.text,
+        uid: AuthApi.uid,
+        imageUrl: '');
+    bool temp = await UserApi().registerUser(appUser);
+    if (temp == true) {
+      clear();
     }
-//     AppUser appUser = AppUser(
-//         name: name.text,
-//         email: email.text,
-//         userName: userName.text,
-//         uid: AuthApi.uid,
-//         imageUrl: '');
-//         bool temp=await AuthApi().registerUser(appUser, token);
-//         if(temp==true){
-//           clear();
-//         }
   }
 
   clear() {
@@ -47,10 +48,11 @@ class AuthProvider with ChangeNotifier {
 
   Uint8List? profilePhoto;
   final TextEditingController email =
-      TextEditingController(text: 'testing12@testing.com');
+      TextEditingController(text: 'testing12jkkyuj6@testing.com');
   final TextEditingController password =
       TextEditingController(text: '12345678');
-  final TextEditingController name = TextEditingController(text: 'usman');
+  final TextEditingController name =
+      TextEditingController(text: 'usman bajwa ');
   final TextEditingController userName =
       TextEditingController(text: 'usmanafzal854');
 }

@@ -14,7 +14,7 @@ class AuthApi {
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp$apiKey";
       String get signInApi =>
     "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword$apiKey";
-  Future<String> authUser(String email, String password) async {
+  Future<String> signupUser(String email, String password) async {
     try {
       var response = await http.post(Uri.parse(registerUserApi),
           body: json.encode({

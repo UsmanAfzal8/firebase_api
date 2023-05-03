@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
               textStyle: TextStyle(color: Colors.white),
               onTap: () async {
               String tokenId= await AuthApi().signInUser(_email.text, _password.text);
-              await UserApi().getUser(tokenId);
+              await UserApi().getUser();
               }),
         ],
       ),
