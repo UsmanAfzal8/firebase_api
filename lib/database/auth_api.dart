@@ -37,37 +37,7 @@ class AuthApi {
     }
   }
 
-  Future<bool> registerUser(AppUser appUser, String authToken) async {
-    final userId = uid;
-//final documentId = uid; // Replace with your custom document ID
-    final firestoreUrl =
-        'https://firestore.googleapis.com/v1/projects/$projectID/databases/(default)/documents/$collection?documentId=$userId';
-    var responce = await http.post(
-      Uri.parse(firestoreUrl),
-      headers: {
-        'Authorization': 'Bearer $authToken',
-        'Content-Type': 'application/json'
-      },
-      body: json.encode({
-        'fields': {
-          'user_id': {'stringValue': userId},
-          'display_name': {'stringValue': appUser.name},
-          'email': {'stringValue': appUser.email},
-          'image_url': {'stringValue': appUser.imageUrl},
-        }
-      }),
-    );
-    if (responce.statusCode == 200) {
-      Map map = json.decode(responce.body);
-      print(map);
-      return true;
-    } else {
-      Map map = json.decode(responce.body);
-      print(map);
-      return false;
-    }
-  }
-  /// Sign-in existing user with  [email] and [password]
+ 
 Future<String> signInUser(String email, String password) async {
   try {
    
@@ -80,7 +50,8 @@ Future<String> signInUser(String email, String password) async {
     if (response.statusCode == 200) {
       Map map = json.decode(response.body);
       print(map);
-      return map['localId'];
+      uid = map['localId'];
+      return map['idToken'];
      // return Utils.loginToken!;
     } else {
       Map map = json.decode(response.body);

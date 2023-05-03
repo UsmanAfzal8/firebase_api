@@ -3,6 +3,8 @@ import 'package:flutter_firebase_api/database/auth_api.dart';
 import 'package:flutter_firebase_api/widget/custom_elevtaed_button.dart';
 import 'package:flutter_firebase_api/widget/custom_text_form_field.dart';
 
+import '../../database/user_api.dart';
+
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final TextEditingController _email = TextEditingController(text: 'testing12@testing.com');
@@ -30,7 +32,8 @@ class LoginScreen extends StatelessWidget {
               title: 'Login',
               textStyle: TextStyle(color: Colors.white),
               onTap: () async {
-                AuthApi().signInUser(_email.text, _password.text);
+              String tokenId= await AuthApi().signInUser(_email.text, _password.text);
+              await UserApi().getUser(tokenId);
               }),
         ],
       ),
