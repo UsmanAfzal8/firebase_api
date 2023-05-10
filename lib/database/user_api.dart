@@ -29,8 +29,14 @@ class UserApi {
   }
 
   Future<void> getUser() async {
+    final queryField1 = 'name';
+final queryOperator1 = '==';
+final queryValue1 = Uri.encodeQueryComponent('usman');
+final queryFilters = [
+  '$queryField1 $queryOperator1 $queryValue1',
+].join(',');
     final response = await http.get(Uri.parse(
-        'https://firestore.googleapis.com/v1/projects/$projectID/databases/(default)/documents/$collection'));
+        'https://firestore.googleapis.com/v1/projects/$projectID/databases/(default)/documents/$collection?filters[]=$queryFilters'));
     final List<dynamic> documents = json.decode(response.body)['documents'];
     List<AppUser> appUser = [];
     appUser = documents

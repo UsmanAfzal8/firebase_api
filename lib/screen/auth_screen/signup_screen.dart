@@ -78,11 +78,11 @@ class SignupScreen extends StatelessWidget {
                   onTap: () async => authPro.onRegister(),
                   textStyle: const TextStyle(color: Colors.white),
                 ),
-                 const SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 CustomElevatedButton(
-                  title: 'signup',
+                  title: 'get user',
                   onTap: () async {
                     await UserApi().getUser();
                   },
